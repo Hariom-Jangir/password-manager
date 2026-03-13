@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Manager = () => {
 
@@ -9,63 +9,136 @@ const Manager = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordArray, setPasswordArray] = useState(() => {
-  const passwords = localStorage.getItem("passwords");
-  return passwords ? JSON.parse(passwords) : [];
-});
+  const [passwordArray, setPasswordArray] = useState([]);
+  const [editId, setEditId] = useState(null);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  /* =========================
+     LOAD PASSWORDS
+  ========================= */
+
+  const getPasswords = async () => {
+
+    const res = await fetch("http://localhost:3000/passwords");
+    const data = await res.json();
+
+    setPasswordArray(data);
+
   };
 
-  const handleSave = () => {
+  useEffect(() => {
+    getPasswords();
+  }, []);
+
+  /* =========================
+     HANDLE INPUT CHANGE
+  ========================= */
+
+  const handleChange = (e) => {
+
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+
+  };
+
+  /* =========================
+     SAVE PASSWORD
+  ========================= */
+
+  const handleSave = async () => {
 
     if (!form.site || !form.username || !form.password) {
       alert("Please fill all fields");
       return;
     }
 
-    const newArray = [...passwordArray, form];
+    /* EDIT MODE */
 
-    setPasswordArray(newArray);
+    if (editId) {
 
-    localStorage.setItem("passwords", JSON.stringify(newArray));
+      await fetch(`http://localhost:3000/passwords/${editId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
+
+      setEditId(null);
+
+    } 
+    else {
+
+      /* ADD MODE */
+
+      await fetch("http://localhost:3000/passwords", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(form)
+
+      });
+
+    }
 
     setForm({
       site: "",
       username: "",
       password: ""
     });
+
+    getPasswords();
+
   };
+
+  /* =========================
+     COPY TEXT
+  ========================= */
 
   const handleCopy = (text) => {
+
     navigator.clipboard.writeText(text);
     alert("Copied!");
+
   };
 
-  const handleDelete = (index) => {
+  /* =========================
+     DELETE PASSWORD
+  ========================= */
 
-    const newArray = passwordArray.filter((item, i) => i !== index);
+  const handleDelete = async (id) => {
 
-    setPasswordArray(newArray);
+    await fetch(`http://localhost:3000/passwords/${id}`, {
+      method: "DELETE"
+    });
 
-    localStorage.setItem("passwords", JSON.stringify(newArray));
+    getPasswords();
+
   };
 
-  const handleEdit =(index)=>{
-   const item = passwordArray[index];
-   setForm({
-    site : item.site,
-    username : item.username,
-    password : item.password 
-   })
-   const newArray =passwordArray.filter((item,i)=>i!==index);
-   setPasswordArray(newArray);
-   localStorage.setItem("passwords",JSON.stringify(newArray));
+  /* =========================
+     EDIT PASSWORD
+  ========================= */
 
-  }
+  const handleEdit = (item) => {
+
+    setForm({
+      site: item.site,
+      username: item.username,
+      password: item.password
+    });
+
+    setEditId(item._id);
+
+  };
 
   return (
+
     <div className="flex flex-col items-center px-6 py-10">
 
       <h2 className="text-3xl font-bold text-green-500 mb-2">
@@ -122,11 +195,11 @@ const Manager = () => {
 
               {showPassword ? (
 
-                <img src="/eyeclose.svg" alt="hide" className="w-5" /> 
+                <img src="/eyeclose.svg" alt="hide" className="w-5" />
 
               ) : (
 
-               < img src="/eyeopen.svg" alt="show" className="w-5" /> 
+                <img src="/eyeopen.svg" alt="show" className="w-5" />
 
               )}
 
@@ -144,7 +217,7 @@ const Manager = () => {
             onClick={handleSave}
             className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full"
           >
-            Save Password
+            {editId ? "Update Password" : "Save Password"}
           </button>
 
         </div>
@@ -184,16 +257,17 @@ const Manager = () => {
 
               <tbody className="bg-white">
 
-                {passwordArray.map((item, index) => (
+                {passwordArray.map((item) => (
 
                   <tr
-                    key={index}
+                    key={item._id}
                     className="border-t hover:bg-green-50 transition"
                   >
 
                     {/* WEBSITE */}
 
                     <td className="py-2 px-4">
+
                       <div className="flex items-center gap-2">
 
                         <a
@@ -213,11 +287,13 @@ const Manager = () => {
                         />
 
                       </div>
+
                     </td>
 
                     {/* USERNAME */}
 
                     <td className="py-2 px-4">
+
                       <div className="flex items-center gap-2">
 
                         {item.username}
@@ -230,11 +306,13 @@ const Manager = () => {
                         />
 
                       </div>
+
                     </td>
 
                     {/* PASSWORD */}
 
                     <td className="py-2 px-4">
+
                       <div className="flex items-center gap-2">
 
                         {"*".repeat(item.password.length)}
@@ -247,21 +325,22 @@ const Manager = () => {
                         />
 
                       </div>
+
                     </td>
 
                     {/* ACTIONS */}
 
                     <td className="py-2 px-4 text-center space-x-3">
 
-
-                       <button
-                        onClick={() => handleEdit(index)}
+                      <button
+                        onClick={() => handleEdit(item)}
                         className="hover:scale-110 transition"
                       >
                         <img src="/edit.svg" alt="edit" className="w-4" />
                       </button>
+
                       <button
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(item._id)}
                         className="hover:scale-110 transition"
                       >
                         <img src="/delete.svg" alt="delete" className="w-4" />

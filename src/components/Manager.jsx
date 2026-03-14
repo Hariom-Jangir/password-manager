@@ -56,7 +56,7 @@ const Manager = () => {
 
     if (editId) {
 
-      await fetch(`http://localhost:3000/passwords/${editId}`, {
+      await fetch(`https://password-manager-backend-3fj5.onrender.com/passwords/${editId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -71,7 +71,7 @@ const Manager = () => {
 
       /* ADD MODE */
 
-      await fetch("http://localhost:3000/passwords", {
+      await fetch("https://password-manager-backend-3fj5.onrender.com/passwords", {
 
         method: "POST",
 
@@ -112,7 +112,7 @@ const Manager = () => {
 
   const handleDelete = async (id) => {
 
-    await fetch(`http://localhost:3000/passwords/${id}`, {
+    await fetch(`https://password-manager-backend-3fj5.onrender.com/passwords/${id}`, {
       method: "DELETE"
     });
 

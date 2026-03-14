@@ -12,7 +12,7 @@ This project demonstrates **full-stack development using the MERN stack**, REST 
 
 Frontend deployed on Vercel
 
-https://your-vercel-link.vercel.app
+https://password-manager-six-rust.vercel.app/
 
 Backend deployed on Render
 

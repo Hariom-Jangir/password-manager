@@ -1,83 +1,110 @@
 # 🔐 Guard_BY_OM – Password Manager
 
 A simple and secure **Password Manager Web App** built using **React, Express, and MongoDB**.
-It allows users to store, edit, copy, and delete passwords for different websites.
 
-This project demonstrates **full-stack development with the MERN stack**, API integration, and CRUD operations.
+It allows users to **store, edit, copy, and delete passwords** for different websites.
 
----
-
-## 🚀 Features
-
-* Save website credentials (Site, Username, Password)
-* Edit existing passwords
-* Delete saved passwords
-* Copy site, username, or password to clipboard
-* Show / hide password visibility
-* Data stored in **MongoDB database**
-* Responsive UI built with **React + TailwindCSS**
+This project demonstrates **full-stack development using the MERN stack**, REST APIs, CRUD operations, and cloud deployment.
 
 ---
 
-## 🛠 Tech Stack
+# 🌐 Live Demo
 
-### Frontend
+Frontend deployed on Vercel
 
-* React (Vite)
-* Tailwind CSS
-* JavaScript
-* Fetch API
+https://your-vercel-link.vercel.app
 
-### Backend
+Backend deployed on Render
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* CORS
-
-### Tools
-
-* MongoDB Compass
-* Git & GitHub
-* VS Code
+Database hosted on MongoDB Atlas
 
 ---
 
-## 📂 Project Structure
+# 🚀 Features
+
+- Save website credentials (Site, Username, Password)
+- Edit existing passwords
+- Delete saved passwords
+- Copy site, username, or password to clipboard
+- Show / hide password visibility
+- Passwords stored in MongoDB database
+- Responsive UI (works on desktop, tablet, and mobile)
+- Full CRUD functionality
+- Cloud deployed full-stack project
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+- React (Vite)
+- Tailwind CSS
+- JavaScript
+- Fetch API
+
+## Backend
+- Node.js
+- Express.js
+- MongoDB
+- CORS
+
+## Database
+- MongoDB Atlas (Cloud Database)
+
+## Deployment
+- Frontend → Vercel
+- Backend → Render
+- Database → MongoDB Atlas
+
+## Tools
+- MongoDB Compass
+- Git & GitHub
+- VS Code
+
+---
+
+# 📂 Project Structure
 
 ```
 password-manager
+
 │
+
 ├── backend
 │   ├── node_modules
 │   ├── .env
 │   ├── package.json
 │   └── server.js
+
 │
+
 ├── public
 │   ├── copy.svg
 │   ├── delete.svg
 │   ├── edit.svg
 │   ├── eyeopen.svg
 │   └── eyeclose.svg
+
 │
+
 ├── src
 │   ├── components
 │   │   ├── Manager.jsx
 │   │   ├── Navbar.jsx
-│   │   └── footer.jsx
+│   │   └── Footer.jsx
 │   │
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
+
 │
+
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙️ Installation
 
 Clone the repository
 
@@ -88,7 +115,7 @@ cd password-manager
 
 ---
 
-## 📦 Backend Setup
+# 📦 Backend Setup
 
 Go to backend folder
 
@@ -118,7 +145,7 @@ http://localhost:3000
 
 ---
 
-## 💻 Frontend Setup
+# 💻 Frontend Setup
 
 From root folder run
 
@@ -135,49 +162,64 @@ http://localhost:5173
 
 ---
 
-## 🔗 API Endpoints
+# 🔗 API Endpoints
 
-| Method | Endpoint         | Description       |
-| ------ | ---------------- | ----------------- |
-| GET    | `/passwords`     | Get all passwords |
-| POST   | `/passwords`     | Add new password  |
-| PUT    | `/passwords/:id` | Update password   |
-| DELETE | `/passwords/:id` | Delete password   |
-
----
-
-## 🧠 How It Works
-
-1. User enters credentials in the React UI
-2. React sends request using **Fetch API**
-3. Express backend receives request
-4. MongoDB stores data
-5. API sends response back to React
-6. UI updates automatically
+| Method | Endpoint | Description |
+|------|------|------|
+| GET | /passwords | Get all passwords |
+| POST | /passwords | Add new password |
+| PUT | /passwords/:id | Update password |
+| DELETE | /passwords/:id | Delete password |
 
 ---
 
-## 📸 Preview
+# 🧠 How It Works
+
+1. User enters credentials in the React UI  
+2. React sends request using Fetch API  
+3. Express backend receives request  
+4. Backend connects to MongoDB Atlas  
+5. Data is stored in the database  
+6. API sends response back to React  
+7. UI updates automatically  
+
+---
+
+# 🌍 Deployment Architecture
+
+User  
+↓  
+React Frontend (Vercel)  
+↓ API Request  
+Express Backend (Render)  
+↓  
+MongoDB Atlas Database  
+
+---
+
+# 📸 Preview
 
 ![Demo](./public/screenshot/demo.png)
 
 ---
 
-## 🌍 Future Improvements
+# 🌟 Future Improvements
 
-* User authentication
-* Password encryption
-* Search and filter passwords
-* Deploy full MERN stack
+- User authentication
+- Password encryption
+- Search and filter passwords
+- User specific password storage
+- Dark mode
+- Browser extension
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Hariom Jangir**
 
-
-GitHub: https://github.com/Hariom-Jangir
+GitHub  
+https://github.com/Hariom-Jangir
 
 ---
 

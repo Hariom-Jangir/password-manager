@@ -18,14 +18,17 @@ app.use(cors());
    MONGODB CONFIG
 ============================== */
 
+const uri = process.env.MONGO_URI;
+
 if (!uri) {
   console.error("MONGO_URI is not defined in environment variables");
   process.exit(1);
 }
 
 const client = new MongoClient(uri);
-
 const dbName = "Guard_BY_OM";
+
+
 
 /* ==============================
    START SERVER

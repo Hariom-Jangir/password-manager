@@ -18,7 +18,7 @@ const Manager = () => {
 
   const getPasswords = async () => {
 
-    const res = await fetch("http://localhost:3000/passwords");
+    const res = await fetch("https://password-manager-backend-3fj5.onrender.com/passwords");
     const data = await res.json();
 
     setPasswordArray(data);
@@ -28,7 +28,6 @@ const Manager = () => {
   useEffect(() => {
     getPasswords();
   }, []);
-
   /* =========================
      HANDLE INPUT CHANGE
   ========================= */
